@@ -2,17 +2,48 @@
 <html lang="en">
 
 <head>
+  <link href="./dist/output.css" rel="stylesheet">
+
     <title>CPSC 349 - Exercise 4</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <script crossorigin defer src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin defer src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script type = "module" crossorigin defer src="https://unpkg.com/pocketbase@0.8.1/dist/pocketbase.umd.js"></script>   
+    <script type = "module" crossorigin defer src="https://unpkg.com/pocketbase@0.8.1/dist/pocketbase.umd.js"></script>
     <script type="module" src="app.js"></script>
+
 </head>
 
+
 <body>
+
+  <div class="bg-green-300 border-green-600 border-b p-4 m-4 rounded">
+Hello World
+</div>
+
+<h1 class="text-6xl font-bold underline">
+    Hello world!
+  </h1>
     <div id="root"></div>
+
+
+        <!-- object named diary-entry will be an array that contains saved entries -->
+        <!-- object named current holds the text inside the textbox. Currently trying to save this into diary-entry with the button-->
+        <div object key:current-entry="">
+            <div>
+                <main class="flex justify-center">
+                    <textarea
+                        cols = "100"
+                        class="textarea textarea-primary box-content h-32 w-100 p-4 border-4"
+                        placeholder="How was your day..."
+                        update:current-entry
+                        >{{currentEntry}}</textarea>
+                </main>
+
+            </div>
+        </div>
+
+
 </body>
 
 </html>
