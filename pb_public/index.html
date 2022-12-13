@@ -9,8 +9,10 @@
     <script crossorigin defer src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin defer src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script type = "module" crossorigin defer src="https://unpkg.com/pocketbase@0.8.1/dist/pocketbase.umd.js"></script>
-    <script type="module" src="./fapp.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
+<script defer type="module" src="app.js"></script>
+
+</head>
 </head>
 
 
@@ -34,7 +36,7 @@
     <div class="flex flex-col text-sm rounded-md">
       <input id="data_stuff" class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 " type="text" placeholder="Submit your diary entry here" />
     </div>
-    <button onclick="onClickBUTTON()" name="btn1" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Submit</button>
+    <button onclick="CLICKER()" name="btn1" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Submit</button>
     <div class="mt-5 flex justify-between text-sm text-gray-600">
     </div>
     <div class="flex justify-center mt-5 text-sm">
@@ -57,16 +59,64 @@
 </body>
 
 <script>
-async function onClickBUTTON() {
 
-console.log(document.getElementById('data_stuff').value)
-//AppStuff(document.getElementById('data_stuff').value)
-createStuff();
+async function init () {
+            // initialize pocketbase
+            this.client = new PocketBase('http://127.0.0.1:8090');
+
+            // capture invalid token
+            this.client.afterSend = function (response, data) {
+              if (response.status === 401) {
+                this.showLogin = true
+              }
+
+              return data
+            }
+
+            // if user is not logged in, show login / signup page
+            if (!window.localStorage.getItem('pocketbase_auth')) {
+              this.showLogin = true
+              return
+            }
+
+            // resume session
+            const auth = JSON.parse(window.localStorage.getItem('pocketbase_auth'))
+            this.client.authStore.save(auth.token, auth.model)
+
 }
 
-function getStuff() {
 
-document.getElementById('data_stuff').value  }
+
+
+async function createList () {
+          try {
+
+
+            const data = {
+                "data": document.getElementById('data_stuff').value,
+                "enabled": true
+            };
+
+
+            const record = this.client.collection("diary").create(data);
+          } catch (err) {
+            console.log('ERR', err)
+          }
+        }
+
+var stuff = "";
+function CLICKER()
+{
+init();
+//console.log(document.getElementById('data_stuff').value)
+stuff = document.getElementById('data_stuff').value;
+console.log(stuff);
+//onClicker();
+createList();
+
+
+}
+
 </script>
 
 

@@ -11,25 +11,23 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <App />
+
   </React.StrictMode>
 )
 
-async function createStuff()
-{
-
-  const data = {
-      "data": "test",
-      "enabled": true
-  };
-
-  const record = await pb.collection('diary').create(data);
-
-}
 
 
 function App () {
 
-createStuff();
+  console.log(stuff)
+
+    const data = {
+        "data": "ABC1234",
+        "enabled": true
+    };
+
+    const record = await pb.collection('diary').create(data);
+
 
   return (
     <div className='App'>

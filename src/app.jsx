@@ -11,14 +11,19 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <App />
+
   </React.StrictMode>
 )
 
-async function createStuff()
+
+
+async function onClicker()
 {
 
+console.log(stuff)
+
   const data = {
-      "data": "test",
+      "data": "ABC1234",
       "enabled": true
   };
 
@@ -26,17 +31,18 @@ async function createStuff()
 
 }
 
-
 function App () {
 
-createStuff();
+
+btn1.addEventListener("click", myFunction);
+
+  function myFunction() {
+    console.log("HELLO WORLD");
+  }
 
   return (
     <div className='App'>
       <h1>Hello, {authData.admin.email}</h1>
-
-
-
 
     </div>
   )
