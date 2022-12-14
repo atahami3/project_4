@@ -130,6 +130,9 @@ init();
 const records = await this.client.collection('diary').getFullList(200 /* batch size */, {
     sort: '-created',
 });
+const header_text = document.createElement('h1');
+header_text.textContent = "Diary Entries";
+document.getElementById("root").append(header_text);
 
 for(i = 0; i < records.length; i++){
 console.log(records[i].data);
