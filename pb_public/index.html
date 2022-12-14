@@ -123,6 +123,22 @@ empty.value = '';
 
 }
 
+
+async function ShowDiary(){
+
+init();
+const records = await this.client.collection('diary').getFullList(200 /* batch size */, {
+    sort: '-created',
+});
+
+for(i = 0; i < records.length; i++){
+console.log(records[i].data);
+const paragraph = document.createElement("p");
+paragraph.textContent = records[i].data;
+document.getElementById("root").append(paragraph);
+}
+
+}
 </script>
 
 
