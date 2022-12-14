@@ -37,6 +37,8 @@
       <input id="data_stuff" class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 " type="text" placeholder="Submit your diary entry here" />
     </div>
     <button onclick="CLICKER()" name="btn1" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Submit</button>
+    <button onclick="ShowDiary()" name="btn1" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">show all diaries</button>
+
     <div class="mt-5 flex justify-between text-sm text-gray-600">
     </div>
     <div class="flex justify-center mt-5 text-sm">
@@ -99,6 +101,8 @@ async function createList () {
 
 
             const record = this.client.collection("diary").create(data);
+
+        //    window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
           } catch (err) {
             console.log('ERR', err)
           }
@@ -113,7 +117,9 @@ stuff = document.getElementById('data_stuff').value;
 console.log(stuff);
 //onClicker();
 createList();
-
+//to empty the text box after entry
+var empty = document.getElementById('data_stuff');
+empty.value = '';
 
 }
 
