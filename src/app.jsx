@@ -34,11 +34,7 @@ console.log(stuff)
 function App () {
 
 
-btn1.addEventListener("click", myFunction);
 
-  function myFunction() {
-    console.log("HELLO WORLD");
-  }
 
   return (
     <div className='App'>

@@ -16,6 +16,5 @@ async function onClicker() {
   const record = await pb.collection("diary").create(data);
 }
 function App() {
-
   return /* @__PURE__ */ React.createElement("div", { className: "App" }, /* @__PURE__ */ React.createElement("h1", null, "Hello, ", authData.admin.email));
 }
