@@ -16,20 +16,19 @@
 </head>
 
 
-<body>
+<body class="bg-stone-300">
 
 
 
-<h1 class="text-6xl font-bold underline">
-    Hello world!
+<h1 class="text-6xl text-center text-neutral-500 font-bold underline p-6">
+    Welcome to your personal diary!
   </h1>
 
-
-    <div id="root"></div>
+   <div id="root" class="p-4 m-40 border-2 rounded-lg shadow-lg border-neutral-500 divide-y-4 divide-neutral-400 "></div>
 
     <div class="flex items-center justify-center h-screen">
   <!-- Login Container -->
-  <div class="min-w-fit flex-col border bg-white px-6 py-14 shadow-md rounded-[4px] ">
+  <div class="min-w-fit flex-col border bg-gradient-to-tl from-stone-300 to-stone-400 px-6 py-14 shadow-md rounded-md ">
     <div class="mb-8 flex justify-center">
       <img class="w-24" src="https://m.media-amazon.com/images/I/81T15mxeFVL.png" alt="" />
     </div>
@@ -42,7 +41,7 @@
     <div class="mt-5 flex justify-between text-sm text-gray-600">
     </div>
     <div class="flex justify-center mt-5 text-sm">
-      <p class="text-gray-400">Github Repository</p>
+      <p class="text-gray-500">Github Repository</p>
     </div>
     <div class="mt-5 flex justify-center gap-3    ">
     <img class="h-7 grayscale cursor-pointer hover:grayscale-0 scale-105 duration-300 " src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAC40lEQVRoge3Yz4sXdRzH8Ye7pG4SsgcFpVo3kbR1PdWhLgWpl04evHmwv0FDBSMPpVR0j252kJaQWEIvIiEoopcoVsEfCf4IfyBIoZW47Xb4zPodvs5nPvPd78x6aJ7wOcx75vN6v94zn/nM5zO0tLS0tPTBogY0R7ARo1iWxR7hGqZwo4GcfTOGrwSTs4n2G77EhufitIv1mMSMtPHuNoMf8PqCu8YA9uNxRbNl7R/syzQXhGU4XoPx7vajzjvTqPkzDZifa6ebLGJAM3e+6Ek0Mpz2dyV6gjexGd9mx1VNPsFhvI+3MN11fl9VU1W/A+vxCxbnYlMYzx2PCdPjEM4KU+of2bnlWIu38Rd242Ku7wW8kTt+jE24XNFfkknP3sWzdYnjXIH+0brExxTP85fqSoArBfr/qvCxq/KyfKh4qI1gsLrHKIN4pSA+gJ016EeXB5/VIZ5xMJLjSr/Cr0aE/8Zwv+I5hjPNolwvl3VMDaHxSPwEHvTmsZQHONmjB6QLGI3Er6YczYPYcIl5QLqAlyLxO0k7vXM7El9e1ilVwHQk/mLSTu/E1kAxD0gXcD8SX5e00zuxfcG9sk6pAu5G4u9V6NsLg3g3cq60gBQrxXdb2/oR7mJ7JMcMVvQrfjEifhOr+xUX5vnfIzmmatD3eUR8Fj9LTHMJXsOvJfqH+tB+yqjOev0mtmIPHmaxP4W9wqoeNFfj46xvzPy0sN6qhaM6G5G9wuJui7BizI/XKXxSonMgu6bKX4yJuswTnsKjnPiOLL6rIPGWEp2tFYzPCk+3trs/x0e5BLd0Pjwf4BjO42ssKdEYUu3u76rbPGHYTOSSfDFPndiqc64d0cwvT7AUp3LJvhFWi4vxgmrTalkBPyl/grUwhO8Kks8IG/YUsQKOCDdoQVgkvBP5F3vW/Ap4KIz5xoZNGWvwvc534nqFPtd15vkJYdf33BnBp8J/nxTvZNfWPk22tLS0tPz/+A/3Y3+ksla8tgAAAABJRU5ErkJggg==">
@@ -121,6 +120,9 @@ createList();
 var empty = document.getElementById('data_stuff');
 empty.value = '';
 
+//to reload the page after a new diary entry
+window.location.reload();
+
 }
 
 
@@ -130,13 +132,31 @@ init();
 const records = await this.client.collection('diary').getFullList(200 /* batch size */, {
     sort: '-created',
 });
+
+// checks to see if there are any existing p tags within the div class with id root
+var number = document.querySelector('#root p')
+// if there are p tags then they will be removed from the div
+  if (number !== null) {
+    document.getElementById("root").removeChild(document.getElementById("title"));
+    for(i = 0; i < records.length;i++){
+      document.getElementById("root").removeChild(document.getElementById("entry"));
+    }
+  }
+  else {
+    console.log('<p> does not exists in <div> yet.')
+    }
+
 const header_text = document.createElement('h1');
 header_text.textContent = "Diary Entries";
+header_text.setAttribute("id","title");
+header_text.setAttribute("class","font-bold text-center text-2xl text-neutral-500 p-2");
 document.getElementById("root").append(header_text);
 
 for(i = 0; i < records.length; i++){
 console.log(records[i].data);
 const paragraph = document.createElement("p");
+paragraph.setAttribute("id", "entry");
+paragraph.setAttribute("class", "p-2 m-8 border-2 text-lg");
 paragraph.textContent = records[i].data;
 document.getElementById("root").append(paragraph);
 }
